@@ -4,22 +4,27 @@ provider "kubernetes" {
 }
 
 resource "kubernetes_namespace" "team3" {
+  count = "${var.enrollment}"
   metadata {
-    name = "roger"
+    name = "${element(var.students, count.index)}"
   }
 }
+
 
 resource "kubernetes_pod" "class" {
   count = "${var.enrollment}"
 
   metadata {
-    name = "team3-class"
-#    student = "${element(var.students, count.index)}"
+    name = "${var.className}-class-${count.index}"
+    annotations {
+       "studentName" = "${element(var.students, count.index)}" 
+    }
+    namespace = "${element(var.students, count.index)}"
   }
 
   spec {
     container {
-      image = "wetty"
+      image = "rogman/wetty"
       name  = "wetty-${element(var.students, count.index)}"
 
     }
