@@ -8,6 +8,7 @@ cd pod-deployment
 Make sure to change the enrollment to match the number of students, and the student list to match the class roster.  Save variables.tf, then perform the terraform operations to deploy
 
 terraform init
+terraform plan
 terraform apply
 ```
 
@@ -15,4 +16,3 @@ To Destroy the class
 ```
 terraform destroy
 ```
-
